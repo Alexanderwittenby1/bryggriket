@@ -1,12 +1,5 @@
-import ProductCard from "@/components/ui/ProductCard";
-
-type Product = {
-    imageSrc?: string;
-    title?: string;
-    price?: number;
-    description?: string;
-}
-
+import ProductCard  from "@/components/ui/ProductCard";
+import type { Product } from "@/types/product";
 type ProductSectionProps = {
     products: Product[];
 }
@@ -31,10 +24,7 @@ export default function ProductSection({ products }: ProductSectionProps) {
               
             >
               <ProductCard 
-                imageSrc={product.imageSrc}
-                title={product.title}
-                price={product.price}
-                description={product.description}
+                product={product}
               />
             </div>
           ))}
