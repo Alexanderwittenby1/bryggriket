@@ -3,6 +3,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react';
 import { Product } from '@/types/product';
+import { urlFor } from '@/sanity/client';
+import { getSlugValue } from '@/data/products';
 
 type ProductCardProps = {
   product: Product;
@@ -28,11 +30,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className='flex flex-col w-full max-w-sm mx-auto border border-gray-200 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden'>
       
       {/* Produktbild */}
-      <Link href={`/produkter/${product.category.slug}/${product.slug}`} className="relative">
+      <Link href={`/produkter/${getSlugValue(product.category.slug)}/${getSlugValue(product.slug)}`} className="relative">
         <div className='w-full aspect-square relative overflow-hidden'>
           <Image 
               className='object-cover group-hover:scale-105 transition-transform duration-300'
-              src={product.images[0] || '/placeholder-product.jpg'}
+              src={product.images?.[0] ? urlFor(product.images[0]).width(400).height(400).url() : '/placeholder-product.jpg'}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

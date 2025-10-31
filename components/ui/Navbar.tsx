@@ -12,7 +12,7 @@ import {
 
 export default function Navbar() {
   return (
-    <div className="flex items-center justify-end p-8 bg-white text-black ">
+    <div className="flex items-center justify-end p-8 bg-linear-to-r from-green-700 to-green-800 text-black ">
         
     </div>
   )

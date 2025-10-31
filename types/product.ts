@@ -1,16 +1,18 @@
 export interface Category {
-  id: string;
+  _id?: string;
+  id?: string;
   name: string;
-  slug: string;
+  slug: string | { current: string; _type: 'slug' };
   description?: string;
   image?: string;
   parentId?: string; // För sub-kategorier
 }
 
 export interface Product {
-  id: string;
+  _id?: string;
+  id?: string;
   name: string;
-  slug: string;
+  slug: string | { current: string; _type: 'slug' };
   description: string;
   shortDescription?: string;
   price: number;
@@ -23,7 +25,11 @@ export interface Product {
   featured: boolean;
   rating?: number;
   reviewCount?: number;
-  specifications?: Record<string, string>;
+  specifications?: Record<string, string> | Array<{
+    _key?: string;
+    key: string;
+    value: string;
+  }>;
   createdAt: Date;
   updatedAt: Date;
 }

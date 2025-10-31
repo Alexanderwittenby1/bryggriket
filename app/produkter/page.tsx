@@ -6,7 +6,7 @@ export default function ProdukterPage() {
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
       {/* Header */}
-      <div className="bg-white border-b">
+      <div className="bg-linear-to-r from-green-700 to-green-800 border-b ">
         <div className="max-w-7xl mx-auto px-6 py-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-4">Alla produkter</h1>
           <p className="text-gray-600">Utforska vårt kompletta sortiment för hembrygd</p>
@@ -17,7 +17,7 @@ export default function ProdukterPage() {
       </div>
 
       {/* Quick Category Navigation */}
-      <div className="bg-white border-b">
+      <div className="bg-linear-to-r from-green-700 to-green-800 border-b">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex gap-4 overflow-x-auto">
             <a 

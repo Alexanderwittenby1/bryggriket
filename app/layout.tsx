@@ -17,11 +17,13 @@ export default function RootLayout({
   return (
     <SidebarProvider>
     <html lang="sv">
-      <body>
+      <body className="overflow-x-hidden">
       <AppSidebar />
-      <SidebarInset>
+            <SidebarInset className="overflow-x-hidden">
         <Navbar />
-        {children}
+        <main className="min-h-screen">
+          {children}
+        </main>
       </SidebarInset>
       </body>
     </html>

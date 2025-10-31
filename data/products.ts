@@ -1,4 +1,11 @@
 import { Category, Product, ProductFilters } from '@/types/product';
+import { type SanityDocument } from "next-sanity";
+import { client } from "@/sanity/client";
+
+// Helper function to normalize slug values
+export const getSlugValue = (slug: string | { current: string }): string => {
+  return typeof slug === 'string' ? slug : slug.current;
+};
 
 export const categories: Category[] = [
   {
@@ -170,22 +177,58 @@ export const products: Product[] = [
 ];
 
 // Hjälpfunktioner för produkthantering
-export const getProductsByCategory = (categorySlug: string): Product[] => {
-  return products.filter(product => product.category.slug === categorySlug);
+// export const getProductsByCategory = (categorySlug: string): Product[] => {
+//   return products.filter(product => product.category.slug === categorySlug);
+// };
+
+// export const getAllCategories = (): Promise<Category[]> => {
+//   return Promise.resolve(categories);
+// };
+
+export const getAllCategories = async (): Promise<Category[]> => {
+  const query = `*[_type == "category"]`;
+  return await client.fetch<Category[]>(query);
 };
 
-export const getAllCategories = (): Category[] => {
-  return categories;
+// export const getFeaturedProducts = (): Product[] => {
+//   return products.filter(product => product.featured);
+// };
+
+// export const getProductBySlug = (slug: string): Product | undefined => {
+//   return products.find(product => product.slug === slug);
+// };
+
+export const getProductBySlug = async (slug: string): Promise<Product | undefined> => {
+  const query = `*[_type == "product" && slug.current == $slug][0]`;
+  const params = { slug };
+  return await client.fetch<Product>(query, params);
 };
 
-export const getFeaturedProducts = (): Product[] => {
-  return products.filter(product => product.featured);
+export const getFeaturedProducts = async (): Promise<Product[]> => {
+  const query = `*[_type == "product" && featured == true]`;
+  return await client.fetch<Product[]>(query);
+}
+
+export const getAllProducts = async (): Promise<Product[]> => {
+  const query = `*[_type == "product"]`;
+  return await client.fetch<Product[]>(query);
 };
 
-export const getProductBySlug = (slug: string): Product | undefined => {
-  return products.find(product => product.slug === slug);
-};
+export const getProductsByCategory = async (category: string): Promise<Product[]> => {
+  console.log("Fetching products for category:", category);
+  const query = `*[_type == "product" && category->slug.current == $category]`;
+  const params = { category };
+  return await client.fetch<Product[]>(query, params);
+}
 
+export const getCategoryByProductSlug = async (slug: string): Promise<Category | undefined> =>{
+  const query = `*[_type == "product" && slug.current == $slug][0]{ category->{name} }`;
+  const params = { slug };
+  const result = await client.fetch<{ category: Category }>(query, params);
+  return result?.category;
+
+}
+  
 export const filterProducts = (filters: ProductFilters): Product[] => {
   return products.filter(product => {
     // Implementera filtrering baserat på filters-objektet
@@ -206,3 +249,5 @@ export const filterProducts = (filters: ProductFilters): Product[] => {
     return true;
   });
 };
+
+

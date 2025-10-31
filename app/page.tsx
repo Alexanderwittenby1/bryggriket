@@ -1,11 +1,19 @@
 import ProductCard from "@/components/ui/ProductCard";
 import CategoryCard from "@/components/ui/CategoryCard";
-import { getFeaturedProducts, categories, getProductsByCategory } from "@/data/products";
+import { getFeaturedProducts, categories, getProductsByCategory, getAllCategories } from "@/data/products";
 import Link from "next/link";
+import { get } from "http";
 
-export default function Home() {
-  const featuredProducts = getFeaturedProducts();
-
+export default async function Home() {
+  const featuredProducts = await getFeaturedProducts();
+  const categories = await getAllCategories();
+  console.log("Categories:", categories.map(cat => {
+    return { name:cat.name}
+  }));
+  
+  featuredProducts.map(product => {
+    console.log("ProductMAP:", product.name);
+  });
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -24,7 +32,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Kategorier */}
+      {/* Kategorier
       <section className="py-16">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -43,9 +51,9 @@ export default function Home() {
                 />
               );
             })}
-          </div>
+          </div> */}
 
-          <div className="text-center">
+          {/* <div className="text-center">
             <Link 
               href="/kategorier"
               className="text-blue-600 hover:text-blue-700 font-medium"
@@ -54,9 +62,9 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
-      {/* Populära produkter */}
+      {/* Populära produkter
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12">
@@ -84,7 +92,7 @@ export default function Home() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Info sektion */}
       <section className="py-16 bg-gray-50">
