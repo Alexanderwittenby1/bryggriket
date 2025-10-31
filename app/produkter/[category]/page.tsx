@@ -23,6 +23,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const categoryProducts = await getProductsByCategory(categorySlug);
 
+  console.log("products & slug in category:", categoryProducts.map(p => ({ name: p.name, slug: getSlugValue(p.slug) })));
+
   return (
     <div className="bg-gray-50 overflow-x-hidden">
       {/* Breadcrumb Navigation */}

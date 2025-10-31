@@ -11,6 +11,8 @@ type ProductCardProps = {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+
+    console.log("productkort")
     const [loading, setLoading] = useState(false);
 
     const handleClick = () => {
@@ -25,7 +27,7 @@ export default function ProductCard({ product }: ProductCardProps) {
     const discountPercentage = product.originalPrice 
       ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
       : 0;
- 
+    
   return (
     <div className='flex flex-col w-full max-w-sm mx-auto border border-gray-200 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden'>
       
@@ -34,7 +36,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className='w-full aspect-square relative overflow-hidden'>
           <Image 
               className='object-cover group-hover:scale-105 transition-transform duration-300'
-              src={product.images?.[0] ? urlFor(product.images[0]).width(400).height(400).url() : '/placeholder-product.jpg'}
+              src={product.images?.[0] ? urlFor(product.images[0])?.width(400).height(400).url() || '/placeholder-product.jpg' : '/placeholder-product.jpg'}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -70,7 +72,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
       {/* Produktinfo */}
       <div className='flex flex-col flex-1 p-4'>
-        <Link href={`/produkter/${product.category.slug}/${product.slug}`}>
+        <Link href={`/produkter/${getSlugValue(product.category.slug)}/${getSlugValue(product.slug)}`}>
           <h2 className='text-lg font-bold text-gray-800 hover:text-blue-600 transition-colors mb-2 line-clamp-2'>
             {product.name}
           </h2>

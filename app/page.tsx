@@ -1,6 +1,6 @@
 import ProductCard from "@/components/ui/ProductCard";
 import CategoryCard from "@/components/ui/CategoryCard";
-import { getFeaturedProducts, categories, getProductsByCategory, getAllCategories } from "@/data/products";
+import { getFeaturedProducts,  getProductsByCategory, getAllCategories } from "@/data/products";
 import Link from "next/link";
 import { get } from "http";
 

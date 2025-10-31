@@ -1,8 +1,10 @@
-import { products, categories } from '@/data/products';
+import { getAllProducts, getAllCategories } from '@/data/products';
 import ProductCard from '@/components/ui/ProductCard';
 import CategoryCard from '@/components/ui/CategoryCard';
 
-export default function ProdukterPage() {
+export default async function ProdukterPage() {
+  const products = await getAllProducts();
+  const categories = await getAllCategories();
   return (
     <div className="min-h-screen bg-linear-to-br from-gray-50 to-gray-100">
       {/* Header */}

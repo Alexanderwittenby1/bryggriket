@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Category } from '@/types/product';
+import { getSlugValue } from '@/data/products';
 
 interface CategoryCardProps {
   category: Category;
@@ -8,8 +9,9 @@ interface CategoryCardProps {
 }
 
 export default function CategoryCard({ category, productCount }: CategoryCardProps) {
+  console.log("slug value:", getSlugValue(category.slug));
   return (
-    <Link href={`/produkter/${category.slug}`}>
+    <Link href={`/produkter/${getSlugValue(category.slug)}`}>
       <div className="group relative overflow-hidden rounded-lg bg-white shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105">
         {/* Kategori bild */}
         <div className="aspect-square w-full overflow-hidden bg-gray-100">

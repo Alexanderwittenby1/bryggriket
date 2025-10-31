@@ -1,7 +1,10 @@
-import { categories, getProductsByCategory } from '@/data/products';
+import { getCategoriesWithProductCount } from '@/data/products';
 import CategoryCard from '@/components/ui/CategoryCard';
 
-export default function KategorierPage() {
+export default async function KategorierPage() {
+  // Fetch categories with product count in parallel
+  const categoriesWithCount = await getCategoriesWithProductCount();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       {/* Header */}
@@ -15,16 +18,13 @@ export default function KategorierPage() {
       {/* Kategorier Grid */}
       <div className="max-w-7xl mx-auto px-6 pb-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {categories.map((category) => {
-            const productCount = getProductsByCategory(category.slug).length;
-            return (
-              <CategoryCard
-                key={category.id}
-                category={category}
-                productCount={productCount}
-              />
-            );
-          })}
+          {categoriesWithCount.map((category) => (
+            <CategoryCard
+              key={category._id || category.id}
+              category={category}
+              productCount={category.productCount}
+            />
+          ))}
         </div>
       </div>
 
