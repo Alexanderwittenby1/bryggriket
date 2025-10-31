@@ -20,7 +20,7 @@ export default function RootLayout({
       <body className="overflow-x-hidden">
       <AppSidebar />
             <SidebarInset className="overflow-x-hidden">
-        <Navbar />
+        {/* <Navbar /> */}
         <main className="min-h-screen">
           {children}
         </main>

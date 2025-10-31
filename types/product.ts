@@ -4,7 +4,7 @@ export interface Category {
   name: string;
   slug: string | { current: string; _type: 'slug' };
   description?: string;
-  image?: string;
+  image?: string | { _ref: string; _type: 'reference' } | any; // Hybrid: string URL eller Sanity image
   parentId?: string; // För sub-kategorier
 }
 

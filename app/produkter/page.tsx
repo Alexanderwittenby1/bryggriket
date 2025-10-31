@@ -19,7 +19,7 @@ export default async function ProdukterPage() {
       </div>
 
       {/* Quick Category Navigation */}
-      <div className="bg-linear-to-r from-green-700 to-green-800 border-b">
+      {/* <div className="bg-linear-to-r from-green-700 to-green-800 border-b">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex gap-4 overflow-x-auto">
             <a 
@@ -39,7 +39,7 @@ export default async function ProdukterPage() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto px-6 py-12">

@@ -31,24 +31,36 @@ export const getCategoriesWithProductCount = async (): Promise<(Category & { pro
 // };
 
 export const getProductBySlug = async (slug: string): Promise<Product | undefined> => {
-  const query = `*[_type == "product" && slug.current == $slug][0]`;
+  const query = `*[_type == "product" && slug.current == $slug][0]{
+    ...,
+    category->
+  }`;
   const params = { slug };
   return await client.fetch<Product>(query, params);
 };
 
 export const getFeaturedProducts = async (): Promise<Product[]> => {
-  const query = `*[_type == "product" && featured == true]`;
+  const query = `*[_type == "product" && featured == true]{
+    ...,
+    category->
+  }`;
   return await client.fetch<Product[]>(query);
 }
 
 export const getAllProducts = async (): Promise<Product[]> => {
-  const query = `*[_type == "product"]`;
+  const query = `*[_type == "product"]{
+    ...,
+    category->
+  }`;
   return await client.fetch<Product[]>(query);
 };
 
 export const getProductsByCategory = async (category: string): Promise<Product[]> => {
   console.log("Fetching products for category:", category);
-  const query = `*[_type == "product" && category->slug.current == $category]`;
+  const query = `*[_type == "product" && category->slug.current == $category]{
+    ...,
+    category->
+  }`;
   const params = { category };
   return await client.fetch<Product[]>(query, params);
 }

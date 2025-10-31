@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/ui/ProductCard";
 import { getSlugValue, getProductBySlug, getProductsByCategory, getAllCategories } from "@/data/products";
 import { urlFor } from "@/sanity/client";
+import { get } from 'http';
 
 interface ProductPageProps {
   params: Promise<{
@@ -20,12 +21,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   const { category: categorySlug, product: productSlug } = await params;
   
   const product = await getProductBySlug(productSlug);
-  const categories = await getAllCategories();
-  
-  console.log("kategorislug:", categorySlug);
-  console.log("produktslug:", productSlug);
-  console.log("produkt:", product);
-  console.log("images:", product?.images);
+  const category = getSlugValue(categorySlug);
 
   if (!product) {
     notFound();
@@ -45,11 +41,11 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <span>/</span>
             <Link href="/produkter" className="hover:text-blue-600">Produkter</Link>
             <span>/</span>
-            <Link href={`/produkter/${categorySlug}`} className="hover:text-blue-600">
-              {/* {category.name} */}
+            <Link href={`/produkter/${category}`} className="hover:text-blue-600">
+              {category}
             </Link>
-            <span>/</span>
-            <span className="text-gray-900"></span>
+            
+            
           </nav>
         </div>
       </div>

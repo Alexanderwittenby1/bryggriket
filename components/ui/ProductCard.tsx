@@ -11,8 +11,10 @@ type ProductCardProps = {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-
-    console.log("productkort")
+    console.log("yolo", product)
+    console.log("kategori", product.category)
+    
+    
     const [loading, setLoading] = useState(false);
 
     const handleClick = () => {
@@ -31,7 +33,7 @@ export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className='flex flex-col w-full max-w-sm mx-auto border border-gray-200 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 group overflow-hidden'>
       
-      {/* Produktbild */}
+      
       <Link href={`/produkter/${getSlugValue(product.category.slug)}/${getSlugValue(product.slug)}`} className="relative">
         <div className='w-full aspect-square relative overflow-hidden'>
           <Image 
@@ -59,13 +61,6 @@ export default function ProductCard({ product }: ProductCardProps) {
                 Slut i lager
               </span>
             )}
-          </div>
-
-          {/* Category badge */}
-          <div className="absolute top-3 right-3">
-            <span className="bg-white/80 backdrop-blur-sm text-gray-700 text-xs px-2 py-1 rounded-full">
-              {product.category.name}
-            </span>
           </div>
         </div>
       </Link>
